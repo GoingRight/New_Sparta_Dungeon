@@ -11,27 +11,42 @@ public class PlayerCondition : MonoBehaviour
     [SerializeField] private float maxhelath;
     [SerializeField] private float maxstamina;
 
-
-    public CharacterInfo characterInfo;
+    public float lastStaminaUse;
+    public float staminaRecoverRate;
+    public float recoverStaminaValue;
 
     private void Start()
     {
-        //if(Haskey)
-
-
+        lastStaminaUse = 0;
         Health = new Condition(maxhelath, healthUI.UpdateUI);
         Stamina = new Condition(maxstamina, staminaUI.UpdateUI);
     }
 
-    bool CheckStamina(float cost, float curStamina)
+    private void Update()
     {
-        if (curStamina < cost)
+        if(Stamina.curValue < Stamina.maxValue)
+        {
+            RecoverStamina();
+        }
+    }
+
+    public bool CheckStamina(float cost)
+    {
+        if (Stamina.curValue < cost)
         {
             return false;
         }
         else
         {
             return true;
+        }
+    }
+    public void RecoverStamina()
+    {
+        if(Time.time - lastStaminaUse> staminaRecoverRate)
+        {
+            Stamina.Add(recoverStaminaValue * Time.deltaTime);
+            Stamina.curValue = Mathf.Clamp(Stamina.curValue, 0, maxstamina);
         }
     }
 }

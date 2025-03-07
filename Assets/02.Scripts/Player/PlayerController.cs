@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,18 @@ public class PlayerController : MonoBehaviour
     public float runSpeed;
     public float jumpPower;
     public float runStaminaCost;
-    public bool isRun;
+    public bool isRun
+    {
+        set
+        {
+            if (value) speed = runSpeed;
+            else
+            {
+                speed = walkSpeed;
+                player.condition.lastStaminaUse = Time.time;
+            }
+        }
+    }
 
     [Header("Look")]
     private Vector2 mouseDelta;
@@ -23,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public Transform head;
 
     private Rigidbody _rb;
+    private Player player;
 
     private void Awake()
     {
@@ -31,7 +44,9 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        player = CharacterManager.Instance.Player;
         Cursor.lockState = CursorLockMode.Locked;
+        speed = walkSpeed;
     }
 
     private void FixedUpdate()
@@ -81,10 +96,32 @@ public class PlayerController : MonoBehaviour
 
     public void OnRun(InputAction.CallbackContext context)
     {
-        //if(context.phase == InputActionPhase.Performed &&CheckStamina(runStaminaCost, )
-        //{
+        if (context.phase == InputActionPhase.Performed
+            && player.condition.CheckStamina(runStaminaCost))
+        {
+            runco = StartCoroutine(RunCo());
+        }
 
-        //}
+        if(context.phase == InputActionPhase.Canceled)
+        {
+            isRun = false;
+            StopCoroutine(runco);
+        }
+    }
+
+    public Coroutine runco;
+
+    public IEnumerator RunCo()
+    {
+        while (player.condition.CheckStamina(runStaminaCost * Time.deltaTime))
+        {
+            isRun = true;
+            player.condition.Stamina.Subtract(runStaminaCost * Time.deltaTime);
+            player.condition.lastStaminaUse = Time.time;
+            yield return null;
+        }
+        isRun = false;
+        StopCoroutine(runco);
     }
 
 

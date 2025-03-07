@@ -23,7 +23,6 @@ public class Condition
 
     public float maxValue;
     public float curValue;
-    public float recoverValue;
 
     public event Action<float> onconditionChanged;
     public float GetPercent()
