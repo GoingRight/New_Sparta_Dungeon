@@ -1311,7 +1311,7 @@ GameObject:
   - component: {fileID: 1507410246}
   - component: {fileID: 1507410245}
   - component: {fileID: 1507410244}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1560,9 +1560,13 @@ MonoBehaviour:
   speed: 0
   walkSpeed: 4
   runSpeed: 8
-  jumpPower: 0
+  jumpPower: 80
+  jumpCount: 2
+  jumpCost: 7
   runStaminaCost: 10
-  runCheckRate: 0
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   maxHeadUp: 65
   maxHeadDown: -65
   lookSencsitivity: 0.1
@@ -1654,6 +1658,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a75645c1-46ad-4bc0-b30c-b68053df0629
     m_ActionName: Player/Run[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2068842604}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 32776e11-4db8-4f05-96f7-534d47552776
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1674,15 +1694,16 @@ MonoBehaviour:
   Health:
     maxValue: 0
     curValue: 0
-    recoverValue: 0
   Stamina:
     maxValue: 0
     curValue: 0
-    recoverValue: 0
   healthUI: {fileID: 127676237}
   staminaUI: {fileID: 1358566101}
   maxhelath: 100
   maxstamina: 100
+  lastStaminaUse: 0
+  staminaRecoverRate: 2
+  recoverStaminaValue: 5
 --- !u!1001 &8350977523087172677
 PrefabInstance:
   m_ObjectHideFlags: 0

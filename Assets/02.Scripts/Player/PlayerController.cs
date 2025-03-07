@@ -12,11 +12,17 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
     public float jumpPower;
+    public int jumpCount;
+    public float jumpCost;
     public float runStaminaCost;
-    public bool isRun
+    public LayerMask groundLayerMask;
+    private bool isRun;
+    public bool IsRun
     {
+        get { return isRun; }
         set
         {
+            isRun = value;
             if (value) speed = runSpeed;
             else
             {
@@ -25,6 +31,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    private bool didUseRun = false;
 
     [Header("Look")]
     private Vector2 mouseDelta;
@@ -94,18 +101,62 @@ public class PlayerController : MonoBehaviour
         mouseDelta = context.ReadValue<Vector2>();
     }
 
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (jumpCount == 0)
+        {
+            isGround();
+        }
+
+        if (context.phase == InputActionPhase.Started && jumpCount != 0 && player.condition.Stamina.curValue > jumpCost)
+        {
+            player.condition.lastStaminaUse = Time.time;
+            player.condition.Stamina.Subtract(jumpCost);
+            jumpCount--;
+            _rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+        }
+    }
+
+    void isGround()
+    {
+        Ray[] rays = new Ray[4]
+        {
+            new Ray(transform.position+(transform.forward*0.2f)+ (transform.up*0.01f), Vector3.down),
+            new Ray(transform.position+(transform.right*0.2f)+ (transform.up*0.01f), Vector3.down),
+            new Ray(transform.position+(-transform.forward*0.2f)+ (transform.up*0.01f), Vector3.down),
+            new Ray(transform.position+(-transform.right*0.2f)+ (transform.up*0.01f), Vector3.down)
+        };
+
+        for (int i = 0; i < rays.Length; i++)
+        {
+            if (Physics.Raycast(rays[i], 0.01f, groundLayerMask))
+            {
+                jumpCount = 2;
+            }
+        }
+    }
+
+
     public void OnRun(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed
             && player.condition.CheckStamina(runStaminaCost))
         {
-            runco = StartCoroutine(RunCo());
+            if(curMoveInput != Vector2.zero)
+            {
+                didUseRun = true;
+                runco = StartCoroutine(RunCo());
+            }
         }
 
-        if(context.phase == InputActionPhase.Canceled)
+        if (context.phase == InputActionPhase.Canceled)
         {
-            isRun = false;
-            StopCoroutine(runco);
+            if(didUseRun)
+            {
+                IsRun = false;
+                StopCoroutine(runco);
+            }
+            didUseRun = false;
         }
     }
 
@@ -115,12 +166,12 @@ public class PlayerController : MonoBehaviour
     {
         while (player.condition.CheckStamina(runStaminaCost * Time.deltaTime))
         {
-            isRun = true;
+            IsRun = true;
             player.condition.Stamina.Subtract(runStaminaCost * Time.deltaTime);
             player.condition.lastStaminaUse = Time.time;
             yield return null;
         }
-        isRun = false;
+        IsRun = false;
         StopCoroutine(runco);
     }
 
