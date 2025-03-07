@@ -93,7 +93,6 @@ public class PlayerController : MonoBehaviour
         head.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
 
         transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSencsitivity, 0);
-
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -101,14 +100,19 @@ public class PlayerController : MonoBehaviour
         mouseDelta = context.ReadValue<Vector2>();
     }
 
+
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (jumpCount == 0)
+        if(context.phase != InputActionPhase.Started)
+        {
+            return;
+        }
+        if (_rb.velocity.y <=0)
         {
             isGround();
         }
 
-        if (context.phase == InputActionPhase.Started && jumpCount != 0 && player.condition.Stamina.curValue > jumpCost)
+        if (jumpCount != 0 && player.condition.Stamina.curValue > jumpCost)
         {
             player.condition.lastStaminaUse = Time.time;
             player.condition.Stamina.Subtract(jumpCost);
@@ -129,7 +133,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], 0.01f, groundLayerMask))
+            if (Physics.Raycast(rays[i], 0.011f, groundLayerMask))
             {
                 jumpCount = 2;
             }
