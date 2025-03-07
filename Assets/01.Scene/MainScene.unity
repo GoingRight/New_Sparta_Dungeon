@@ -439,6 +439,7 @@ GameObject:
   - component: {fileID: 461932572}
   - component: {fileID: 461932571}
   - component: {fileID: 461932570}
+  - component: {fileID: 461932575}
   m_Layer: 0
   m_Name: StaminaBall
   m_TagString: Untagged
@@ -559,6 +560,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &461932575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461932569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a2899cf244834428a8229975acbe37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 9142d9454f4ec7b4780b01c09a44de19, type: 2}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,6 +1702,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   condition: {fileID: 0}
+  curItem: {fileID: 0}
 --- !u!114 &2068842606
 MonoBehaviour:
   m_ObjectHideFlags: 0
