@@ -26,6 +26,6 @@ public class ItemData : ScriptableObject
 
     public virtual void UseItem()
     {
-
+        //고유 효과가 아닌 일반 아이템들 사용 메서드
     }
 }
