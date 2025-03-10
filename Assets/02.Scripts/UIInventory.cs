@@ -59,13 +59,14 @@ public class UIInventory : MonoBehaviour
     public void ChangeBtnEffect(int index)
     {
         selectedItemIndex = index;
-        //onClickUseBtn = playerinventory.slots[index].Use;
-
+        onClickUseBtn = playerinventory.slots[selectedItemIndex].itemData.UseItem;
     }
 
     public void OnUse()
     {
         onClickUseBtn?.Invoke();
+        playerinventory.slots[selectedItemIndex].quantity--;
+        playerinventory.slotUpdate?.Invoke();
     }
 
     public void OnDrop()

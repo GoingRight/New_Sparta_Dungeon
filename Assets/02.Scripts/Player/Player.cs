@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public PlayerController controller;
     public PlayerCondition condition;
     public PlayerInventory inventory;
+    public BuffController buffControll;
 
     public ItemData curItem;
     public Transform dropPosition;
@@ -18,5 +19,6 @@ public class Player : MonoBehaviour
         controller = GetComponent<PlayerController>();
         condition = GetComponent<PlayerCondition>();
         inventory = GetComponent<PlayerInventory>();
+        buffControll = GetComponent<BuffController>();
     }
 }

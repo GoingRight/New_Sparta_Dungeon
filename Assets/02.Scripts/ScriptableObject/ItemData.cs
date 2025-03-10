@@ -9,6 +9,7 @@ public enum ItemType
     Usable
 }
 
+
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]
 public class ItemData : ScriptableObject
 {
@@ -22,4 +23,9 @@ public class ItemData : ScriptableObject
     [Header("Stack")]
     public bool canStack;
     public int maxStackAmount;
+
+    public virtual void UseItem()
+    {
+
+    }
 }
