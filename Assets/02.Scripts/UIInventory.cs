@@ -24,7 +24,7 @@ public class UIInventory : MonoBehaviour
     {
         playerinventory = CharacterManager.Instance.Player.inventory;
         invenUIInit();
-        playerinventory.slotUIUpdate += slotUIUpdate;
+        playerinventory.slotUpdate += slotUIUpdate;
         onClickDropBtn = playerinventory.DropItem;
     }
 
@@ -48,9 +48,10 @@ public class UIInventory : MonoBehaviour
                 uIItemSlots[i].icon.sprite = playerinventory.slots[i].itemData.icon;
                 uIItemSlots[i].quantityText.text = playerinventory.slots[i].quantity.ToString();
             }
-            if (playerinventory.slots[i].quantity == 0)
+            else
             {
-                uIItemSlots[i].quantityText.text = string.Empty;
+                uIItemSlots[i].icon.sprite = null;
+                uIItemSlots[i].quantityText.text = String.Empty;
             }
         }
     }
@@ -70,5 +71,7 @@ public class UIInventory : MonoBehaviour
     public void OnDrop()
     {
         onClickDropBtn?.Invoke(playerinventory.slots[selectedItemIndex].itemData);
+        playerinventory.slots[selectedItemIndex].quantity--;
+        playerinventory.slotUpdate?.Invoke();
     }
 }

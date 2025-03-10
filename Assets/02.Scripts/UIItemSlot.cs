@@ -22,7 +22,6 @@ public class UIItemSlot : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log(uiSlotIndex);
         if (icon.sprite != null)
         {
             inventory.ChangeBtnEffect(uiSlotIndex);
