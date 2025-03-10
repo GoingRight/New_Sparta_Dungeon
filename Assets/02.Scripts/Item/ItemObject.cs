@@ -20,6 +20,8 @@ public class ItemObject : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        
+        CharacterManager.Instance.Player.curItem = itemData;
+        CharacterManager.Instance.Player.addItem?.Invoke();
+        Destroy(gameObject);
     }
 }
