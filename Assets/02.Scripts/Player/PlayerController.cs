@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour
     public float lookSencsitivity;
     private float camCurXRot;
     public Transform head;
+    private bool canLook;
 
     private Rigidbody _rb;
     private Player player;
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         player = CharacterManager.Instance.Player;
         Cursor.lockState = CursorLockMode.Locked;
         speed = walkSpeed;
+        canLook = true;
     }
 
     private void FixedUpdate()
@@ -63,7 +65,10 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        Look();
+        if (canLook)
+        {
+            Look();
+        }
     }
 
     private void Move()
@@ -179,5 +184,19 @@ public class PlayerController : MonoBehaviour
         StopCoroutine(runco);
     }
 
+    public void OnInventory(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Started)
+        {
+            UIManager.Instance.IsInventory = !UIManager.Instance.IsInventory;
+            ToggleCursor();
+        }
+    }
 
+    void ToggleCursor()
+    {
+        bool toggle = Cursor.lockState == CursorLockMode.Locked;
+        Cursor.lockState = toggle? CursorLockMode.None: CursorLockMode.Locked;
+        canLook = !toggle;
+    }
 }

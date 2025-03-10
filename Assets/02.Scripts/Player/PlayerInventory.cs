@@ -8,12 +8,15 @@ public class PlayerInventory : MonoBehaviour
     public int slotCount;
     public ItemSlot[] slots;
     public Transform dropPosition;
-    public ItemSlot testSlot;
 
     public Action slotUIUpdate;
-    private void Start()
+
+    private void Awake()
     {
         InventoryInit();
+    }
+    private void Start()
+    {
         CharacterManager.Instance.Player.addItem += Additem;
         dropPosition = CharacterManager.Instance.Player.dropPosition;
     }
@@ -49,6 +52,7 @@ public class PlayerInventory : MonoBehaviour
                     {
                         slots[i].quantity++;
                         CharacterManager.Instance.Player.curItem = null;
+                        slotUIUpdate?.Invoke();
                         return;
                     }
                 }
@@ -70,6 +74,7 @@ public class PlayerInventory : MonoBehaviour
             emptySlot.itemData = data;
             emptySlot.quantity = 1;
             CharacterManager.Instance.Player.curItem = null;
+            slotUIUpdate?.Invoke();
             return;
         }
         else
@@ -83,5 +88,6 @@ public class PlayerInventory : MonoBehaviour
     public void DropItem(ItemData dropItem)
     {
         Instantiate(dropItem.dropPrefab, dropPosition.position, Quaternion.identity);
+        slotUIUpdate?.Invoke();
     }
 }
