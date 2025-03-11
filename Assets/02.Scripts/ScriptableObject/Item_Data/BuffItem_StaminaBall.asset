@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 971f3a09a64cca342a9093a2c6564661, type: 3}
-  m_Name: StaminaBall
+  m_Name: BuffItem_StaminaBall
   m_EditorClassIdentifier: 
   itemName: "\uC2A4\uD0DC\uBBF8\uB098 \uBCFC"
   itemDescription: "\uC0AC\uC6A9\uD558\uBA74 10\uCD08\uAC04 \uC2A4\uD0DC\uBBF8\uB098\uB97C
