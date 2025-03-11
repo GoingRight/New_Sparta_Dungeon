@@ -16,9 +16,12 @@ public class Interaction : MonoBehaviour
     private IInteractable curInteractable;
 
     public TextMeshProUGUI promptText;
+
+    public bool canInteract;
     private void Awake()
     {
         _camera = Camera.main;
+        canInteract = true;
     }
 
     private void Update()
@@ -50,7 +53,7 @@ public class Interaction : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && curInteractable!= null)
+        if(context.phase == InputActionPhase.Started && curInteractable!= null && canInteract)
         {
             curInteractable.OnInteract();
             curInteractable = null;

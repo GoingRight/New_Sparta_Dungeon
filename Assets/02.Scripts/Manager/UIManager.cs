@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
 
     public Canvas gameUI;
     public Canvas inventoryUI;
+    public DialogueUI dialogueUI;
 
     private bool isInventory;
     public bool IsInventory

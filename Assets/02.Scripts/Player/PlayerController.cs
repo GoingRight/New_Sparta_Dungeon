@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     public float lookSencsitivity;
     private float camCurXRot;
     public Transform head;
-    private bool canLook;
+    public bool canLook;
 
     private Rigidbody _rb;
     private Player player;
