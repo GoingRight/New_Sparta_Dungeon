@@ -18,7 +18,6 @@ public class BuffItemData : ItemData
     public override void UseItem()
     {
         base.UseItem();
-        Debug.Log(CharacterManager.Instance.Player.buffControll.name);
         CharacterManager.Instance.Player.buffControll.StartBuffEffect(this);
     }
 }

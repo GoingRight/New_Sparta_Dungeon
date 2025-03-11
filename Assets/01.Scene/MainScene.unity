@@ -687,7 +687,7 @@ GameObject:
   - component: {fileID: 538828286}
   - component: {fileID: 538828285}
   - component: {fileID: 538828284}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 581782889}
   - component: {fileID: 581782888}
   - component: {fileID: 581782887}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2625,8 +2625,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1583190124}
   - component: {fileID: 1583190125}
-  m_Layer: 0
-  m_Name: NPC
+  - component: {fileID: 1583190126}
+  m_Layer: 7
+  m_Name: Jane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2676,6 +2677,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1583190126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583190123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7073f2964ae23ab4c8585d5a28cb6c75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPCData: {fileID: 11400000, guid: b84c3b92250b7df45b34b2f8a3173ac7, type: 2}
 --- !u!1 &1706029463
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ public class Interaction : MonoBehaviour
             if(hit.collider.gameObject != curInteractGameObject)
             {
                 curInteractGameObject = hit.collider.gameObject;
-                curInteractable = hit.collider.GetComponent<IInteractable>();
+                curInteractable = hit.collider.GetComponentInParent<IInteractable>(); // 본인 포함
                 SetPromptText();
             }
         }

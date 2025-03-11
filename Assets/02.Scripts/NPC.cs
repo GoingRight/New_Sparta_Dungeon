@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour, IInteractable
 {
-    
+    public NPCData NPCData;
+
     public string GetInteractInfo()
     {
-        throw new System.NotImplementedException();
+        string str = $"{NPCData.npcName}\n{NPCData.npcDescription}";
+        return str;
     }
 
     public void OnInteract()
     {
-        throw new System.NotImplementedException();
+        
     }
 
 }
