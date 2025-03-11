@@ -17,4 +17,5 @@ public class NPC : MonoBehaviour, IInteractable
         
     }
 
+
 }
